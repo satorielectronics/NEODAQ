@@ -81,6 +81,16 @@ def fishing():
     driver.find_element("xpath","/html/body/div/div[5]/main/div[3]/form/input[3]").click()
     print(driver.current_url)
 
+def write_csv(stocks):
+    parent_folder = 'records'
+    os.makedirs(parent_folder, exist_ok=True)
+
+    df = pd.DataFrame(stocks, columns=['Ticker', 'Company', 'Volume',
+                                       'Open Price', 'Current', 'Change'])
+    file_path = os.path.join(parent_folder, today_time+'-'+am_pm_caps+'.csv')
+
+    df.to_csv(file_path, index=False)
+
 #scrape stocks
 def stock_scrape():
     driver.get("https://www.grundos.cafe/games/stockmarket/stocks/?view_all=True")
@@ -114,35 +124,18 @@ def stock_scrape():
     #records = remove_duplicate_arrays(records)
     #data = np.array(records)
     del stocks[0]
-
-    parent_folder = 'records'
-    os.makedirs(parent_folder, exist_ok=True)
-
-    df = pd.DataFrame(stocks, columns=['Ticker', 'Company', 'Volume',
-                                       'Open Price', 'Current', 'Change'])
-    file_path = os.path.join(parent_folder, today_time+'-'+am_pm_caps+'.csv')
-
-    df.to_csv(file_path, index=False)
-
+    write_csv(stocks)
 
     b = Back.LIGHTBLACK_EX
     r = Fore.LIGHTRED_EX
     g = Fore.LIGHTGREEN_EX
     y = Fore.LIGHTYELLOW_EX
 
-    #print(records[1].ticker)
-#    with pd.option_context('display.max_rows', 100,
-#                       'display.max_columns', 6,
-#                       'display.width', 1000,
-#                       'display.precision', 3,
-#                       'display.colheader_justify', 'left'):
-
     pd.set_option('display.max_rows', 100)
     pd.set_option('display.max_columns', 6)
     pd.set_option('display.width', 1000)
     pd.set_option('display.colheader_justify', 'center')
     pd.set_option('display.precision', 2)
-
 
     for record in records:
         if "+" in record.change:
