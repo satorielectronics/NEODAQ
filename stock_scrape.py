@@ -57,7 +57,6 @@ def get_time(soup):
 def clear_term():
     os.system('cls' if os.name == 'nt' else 'clear')
 
-
 #remove empty gif element from each row
 def remove_empty_stock(some_2d_list):
     for sublist in some_2d_list:
@@ -81,13 +80,14 @@ def fishing():
     driver.find_element("xpath","/html/body/div/div[5]/main/div[3]/form/input[3]").click()
     print(driver.current_url)
 
+#create sub_folder and write CSV named after the current time
 def write_csv(stocks):
     parent_folder = 'records'
     os.makedirs(parent_folder, exist_ok=True)
 
     df = pd.DataFrame(stocks, columns=['Ticker', 'Company', 'Volume',
                                        'Open Price', 'Current', 'Change'])
-    file_path = os.path.join(parent_folder, today_time+'-'+am_pm_caps+'.csv')
+    file_path = os.path.join(parent_folder, today_time+'.csv')
 
     df.to_csv(file_path, index=False)
 
