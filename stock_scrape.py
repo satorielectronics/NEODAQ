@@ -87,7 +87,7 @@ def write_csv(stocks):
     df.to_csv(file_path, index=False)
 
 #scrape stocks
-def stock_scrape(records):
+def stock_term(records):
 
     b = Back.LIGHTBLACK_EX
 
@@ -196,9 +196,9 @@ while True:
         stocks = get_records()
         records = stocks_to_records(stocks)
         write_csv(stocks)
-        stock_scrape(records)
+        stock_term(records)
     except Exception as e:
-        print(f"Error: {str(e)}")
+        print(f"Errorm: {str(e)}")
     jitter = random.uniform(30,  1200)
     time.sleep(jitter)
 
