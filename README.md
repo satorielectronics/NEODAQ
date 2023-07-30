@@ -1,6 +1,6 @@
 # NEODAQplus :
 
-###(Python/Selenium/BS4)* - Grundos.cafe stock market aggregator
+### (Python/Selenium/BS4)* - Grundos.cafe stock market aggregator
 
 
 1. export NEO_NAME='ENTER_YOUR_USER'
