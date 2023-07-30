@@ -115,8 +115,12 @@ def stock_scrape():
     #data = np.array(records)
     del stocks[0]
 
+    parent_folder = 'records'
+    os.makedirs(parent_folder, exist_ok=True)
+
     df = pd.DataFrame(stocks, columns=['Ticker', 'Company', 'Volume', 'Open Price', 'Current', 'Change'])
-    df.to_csv(hour+':'+minute+am_pm_caps+'.csv', index=False)
+    file_path = os.path.join(parent_folder, hour+':'+minute+am_pm_caps+'.csv')
+    df.to_csv(file_path, index=False)
 #    global stock_data
 #    stock_data = stock_data.append({'Ticker':stocks[0],'Company':stocks[1],'Volume':stock[2],'Open Price':stocks[3],'Current':stocks[4],'Change':stocks[5]}, ignore_index=True)
 #    print(stock_data)
@@ -127,6 +131,18 @@ def stock_scrape():
     y = Fore.LIGHTYELLOW_EX
 
     #print(records[1].ticker)
+#    with pd.option_context('display.max_rows', 100,
+#                       'display.max_columns', 6,
+#                       'display.width', 1000,
+#                       'display.precision', 3,
+#                       'display.colheader_justify', 'left'):
+
+    pd.set_option('display.max_rows', 100)
+    pd.set_option('display.max_columns', 6)
+    pd.set_option('display.width', 1000)
+    pd.set_option('display.colheader_justify', 'center')
+    pd.set_option('display.precision', 2)
+
 
     for record in records:
         if "+" in record.change:
