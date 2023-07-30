@@ -35,6 +35,7 @@ class StockData:
 
 def get_time(soup):
     clock_div = soup.find("div", id="sb_clock")
+
     global hour
     hour = clock_div.find("span", id="NST_clock_hours").text
     global minute
@@ -48,6 +49,8 @@ def get_time(soup):
     #format_time
     format_time = current_time[1:]
     #format_time
+    global today_time
+    today_time = str(datetime.today())
 
     print(f"Earth Time:  {format_time}")
     print(f"Neopia Time: {hour}:{minute}:{second} {am_pm_caps}")
@@ -119,7 +122,9 @@ def stock_scrape():
     os.makedirs(parent_folder, exist_ok=True)
 
     df = pd.DataFrame(stocks, columns=['Ticker', 'Company', 'Volume', 'Open Price', 'Current', 'Change'])
-    file_path = os.path.join(parent_folder, hour+':'+minute+am_pm_caps+'.csv')
+#    file_path = os.path.join(parent_folder, today_time + '-' +hour+'-'+minute+am_pm_caps+'.csv')
+    file_path = os.path.join(parent_folder, today_time+'-'+am_pm_caps+'.csv')
+
     df.to_csv(file_path, index=False)
 #    global stock_data
 #    stock_data = stock_data.append({'Ticker':stocks[0],'Company':stocks[1],'Volume':stock[2],'Open Price':stocks[3],'Current':stocks[4],'Change':stocks[5]}, ignore_index=True)
