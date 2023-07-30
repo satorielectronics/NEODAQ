@@ -23,6 +23,7 @@ password = str(os.environ.get("NEO_PASS"))
 
 stocks = []
 
+
 class StockData:
     def __init__(self, ticker, company, volume, open_price, curr, change):
         self.ticker = ticker
@@ -34,17 +35,23 @@ class StockData:
 
 def get_time(soup):
     clock_div = soup.find("div", id="sb_clock")
-
+    global hour
     hour = clock_div.find("span", id="NST_clock_hours").text
+    global minute
     minute = clock_div.find("span", id="NST_clock_minutes").text
+    #global second
     second = clock_div.find("span", id="NST_clock_seconds").text
     am_pm = clock_div.find(class_="nst").text.split()[-2]
+    global am_pm_caps
     am_pm_caps = am_pm.upper()
     current_time = datetime.now().strftime("%I:%M:%S %p")
+    #format_time
     format_time = current_time[1:]
+    #format_time
 
     print(f"Earth Time:  {format_time}")
     print(f"Neopia Time: {hour}:{minute}:{second} {am_pm_caps}")
+    #return format_time
 
 #clear terminal
 def clear_term():
@@ -107,8 +114,9 @@ def stock_scrape():
     #records = remove_duplicate_arrays(records)
     #data = np.array(records)
     del stocks[0]
+
     df = pd.DataFrame(stocks, columns=['Ticker', 'Company', 'Volume', 'Open Price', 'Current', 'Change'])
-    df.to_csv('stocks.csv', index=False)
+    df.to_csv(hour+':'+minute+am_pm_caps+'.csv', index=False)
 #    global stock_data
 #    stock_data = stock_data.append({'Ticker':stocks[0],'Company':stocks[1],'Volume':stock[2],'Open Price':stocks[3],'Current':stocks[4],'Change':stocks[5]}, ignore_index=True)
 #    print(stock_data)
