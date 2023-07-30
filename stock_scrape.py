@@ -47,12 +47,6 @@ def get_time(soup):
 def clear_term():
     os.system('cls' if os.name == 'nt' else 'clear')
 
-def remove_duplicate_arrays(arrays):
-    unique_arrays = []
-    for array in arrays:
-        if array not in unique_arrays:
-            unique_arrays.append(array)
-    return unique_arrays
 
 #remove empty gif element from each row
 def remove_empty_stock(some_2d_list):
