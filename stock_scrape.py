@@ -87,39 +87,7 @@ def write_csv(stocks):
     df.to_csv(file_path, index=False)
 
 #scrape stocks
-def stock_scrape():
-    driver.get("https://www.grundos.cafe/games/stockmarket/stocks/?view_all=True")
-    html = driver.page_source
-    soup = BeautifulSoup(html, 'html.parser')
-    #pretty_table = soup.prettify()
-    stocks = []
-    table = soup.find('table')
-        # Iterate over the table rows
-    for row in table.find_all('tr'):
-        # Create a temporary list to store the row data
-        temp_row = []
-        # Iterate over the cells of each row
-        for cell in row.find_all('td'):
-            # Extract the data from the cell
-            cell_data = cell.text.strip()
-            # Append the data to the temporary row list
-            temp_row.append(cell_data)
-        # Append the temporary row list to the 'stocks' list
-        stocks.append(temp_row)
-    #del stocks[0]
-    clear_term()
-    get_time(soup)
-    vol(stocks)
-    records = []
-
-    for row in stocks:
-        ticker, company, volume, open_price, curr, change = row
-        record = StockData(ticker, company, volume, open_price, curr, change)
-        records.append(record)
-    #records = remove_duplicate_arrays(records)
-    #data = np.array(records)
-    del stocks[0]
-    write_csv(stocks)
+def stock_scrape(records):
 
     b = Back.LIGHTGREEN_EX
 
@@ -146,6 +114,45 @@ def stock_scrape():
         else:
             print(y+record.ticker, y+record.company, y+record.volume,
                   y+record.open_price, y+record.curr, y+record.change)
+
+
+def stocks_to_records(stocks):
+    records = []
+    for row in stocks:
+        ticker, company, volume, open_price, curr, change = row
+        record = StockData(ticker, company, volume, open_price, curr, change)
+        records.append(record)
+    # records = remove_duplicate_arrays(records)
+    # data = np.array(records)
+    del stocks[0]
+    return records
+
+
+def get_records():
+    driver.get("https://www.grundos.cafe/games/stockmarket/stocks/?view_all=True")
+    html = driver.page_source
+    soup = BeautifulSoup(html, 'html.parser')
+    # pretty_table = soup.prettify()
+    stocks = []
+    table = soup.find('table')
+    # Iterate over the table rows
+    for row in table.find_all('tr'):
+        # Create a temporary list to store the row data
+        temp_row = []
+        # Iterate over the cells of each row
+        for cell in row.find_all('td'):
+            # Extract the data from the cell
+            cell_data = cell.text.strip()
+            # Append the data to the temporary row list
+            temp_row.append(cell_data)
+        # Append the temporary row list to the 'stocks' list
+        stocks.append(temp_row)
+    # del stocks[0]
+    clear_term()
+    get_time(soup)
+    vol(stocks)
+
+    return stocks
 
 
 def vol(some_list):
@@ -186,7 +193,10 @@ while True:
         #print(f"Fishing!")
         #fishing()
         print(f"Polling Stocks!")
-        stock_scrape()
+        stocks = get_records()
+        records = stocks_to_records(stocks)
+        write_csv(stocks)
+        stock_scrape(records)
     except Exception as e:
         print(f"Error: {str(e)}")
     jitter = random.uniform(30,  1200)
