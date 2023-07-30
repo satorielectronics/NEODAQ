@@ -1,0 +1,8 @@
+LICENSE
+README.md
+setup.py
+neodaq.egg-info/PKG-INFO
+neodaq.egg-info/SOURCES.txt
+neodaq.egg-info/dependency_links.txt
+neodaq.egg-info/requires.txt
+neodaq.egg-info/top_level.txt
