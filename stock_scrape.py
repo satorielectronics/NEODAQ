@@ -121,7 +121,8 @@ def stock_scrape():
     del stocks[0]
     write_csv(stocks)
 
-    b = Back.LIGHTBLACK_EX
+    b = Back.LIGHTGREEN_EX
+
     r = Fore.LIGHTRED_EX
     g = Fore.LIGHTGREEN_EX
     y = Fore.LIGHTYELLOW_EX
@@ -139,6 +140,9 @@ def stock_scrape():
         elif "-" in record.change:
             print(r+record.ticker, r+record.company, r+record.volume,
                   r+record.open_price, r+record.curr, r+record.change)
+        elif "Ticker" in record.ticker:
+            print(b+record.ticker, b+record.company, b+record.volume,
+                  b+record.open_price, b+record.curr, b+record.change)
         else:
             print(y+record.ticker, y+record.company, y+record.volume,
                   y+record.open_price, y+record.curr, y+record.change)
