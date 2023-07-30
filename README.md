@@ -1,8 +1,13 @@
 # NEODAQ :
 
-### (Python/Selenium/BS4)* - grundos.cafe stock market aggregator
+## (Python/Selenium/BS4)* - grundos.cafe stock market aggregator
+* Dependencies: Firefox
 ```bash
-1. export NEO_NAME='ENTER_YOUR_USER'
-2. export NEO_PASS='ENTER_YOUR_PASS'
-3. pip3 install .
+export NEO_NAME='ENTER_YOUR_USER'
+```
+```bash
+export NEO_PASS='ENTER_YOUR_PASS'
+```
+```bash
+pip3 install .
 ```
