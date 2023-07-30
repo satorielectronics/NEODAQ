@@ -12,9 +12,6 @@ from colorama import Fore, Back, Style
 #export NEO_NAME="USER here"
 #export NEO_PASS="PASS here"
 
-#stock_data = pd.DataFrame(columns=['Symbol', 'Company', 'Volume', 'Open Price', 'Current', 'Change'])
-
-
 #Initialize colorama
 colorama.init(autoreset=True)
 
@@ -121,14 +118,12 @@ def stock_scrape():
     parent_folder = 'records'
     os.makedirs(parent_folder, exist_ok=True)
 
-    df = pd.DataFrame(stocks, columns=['Ticker', 'Company', 'Volume', 'Open Price', 'Current', 'Change'])
-#    file_path = os.path.join(parent_folder, today_time + '-' +hour+'-'+minute+am_pm_caps+'.csv')
+    df = pd.DataFrame(stocks, columns=['Ticker', 'Company', 'Volume',
+                                       'Open Price', 'Current', 'Change'])
     file_path = os.path.join(parent_folder, today_time+'-'+am_pm_caps+'.csv')
 
     df.to_csv(file_path, index=False)
-#    global stock_data
-#    stock_data = stock_data.append({'Ticker':stocks[0],'Company':stocks[1],'Volume':stock[2],'Open Price':stocks[3],'Current':stocks[4],'Change':stocks[5]}, ignore_index=True)
-#    print(stock_data)
+
 
     b = Back.LIGHTBLACK_EX
     r = Fore.LIGHTRED_EX
@@ -151,22 +146,23 @@ def stock_scrape():
 
     for record in records:
         if "+" in record.change:
-            print(g+record.ticker, g+record.company, g+record.volume, g+record.open_price, g+record.curr, g+record.change)
+            print(g+record.ticker, g+record.company, g+record.volume,
+                  g+record.open_price, g+record.curr, g+record.change)
         elif "-" in record.change:
-            print(r+record.ticker, r+record.company, r+record.volume, r+record.open_price, r+record.curr, r+record.change)
+            print(r+record.ticker, r+record.company, r+record.volume,
+                  r+record.open_price, r+record.curr, r+record.change)
         else:
-            print(y+record.ticker, y+record.company, y+record.volume, y+record.open_price, y+record.curr, y+record.change)
+            print(y+record.ticker, y+record.company, y+record.volume,
+                  y+record.open_price, y+record.curr, y+record.change)
 
 
 def vol(some_list):
-    #remove first index
-    #del some_list[0]
-    #removes first index of each remaining list
     remove_empty_stock(some_list)
     # Initialize a variable to store the sum of the volumes
     sum_volume = 0
 
-    # Iterate over each sublist in the array starting from the second sublist (skipping the header)
+    # Iterate over each sublist in the array starting from the second sublist
+    # (skipping the header)
     for sublist in some_list[1:]:
         # Access the "Volume" element (at index 2) of the sublist
         volume = sublist[2]
