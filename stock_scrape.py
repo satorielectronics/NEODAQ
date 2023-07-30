@@ -121,7 +121,7 @@ def stock_scrape():
     del stocks[0]
     write_csv(stocks)
 
-    b = Back.LIGHTGREEN_EX
+    b = Back.LIGHTBLACK_EX
 
     r = Fore.LIGHTRED_EX
     g = Fore.LIGHTGREEN_EX
