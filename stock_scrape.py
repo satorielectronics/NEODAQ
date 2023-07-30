@@ -12,6 +12,7 @@ from colorama import Fore, Back, Style
 #export NEO_NAME="USER here"
 #export NEO_PASS="PASS here"
 
+#stock_data = pd.DataFrame(columns=['Symbol', 'Company', 'Volume', 'Open Price', 'Current', 'Change'])
 
 
 #Initialize colorama
@@ -42,8 +43,10 @@ def get_time(soup):
     current_time = datetime.now().strftime("%I:%M:%S %p")
     format_time = current_time[1:]
 
-    print(f"Earth Time: {format_time}")
+    print(f"Earth Time:  {format_time}")
     print(f"Neopia Time: {hour}:{minute}:{second} {am_pm_caps}")
+
+#clear terminal
 def clear_term():
     os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -71,7 +74,7 @@ def fishing():
     driver.find_element("xpath","/html/body/div/div[5]/main/div[3]/form/input[3]").click()
     print(driver.current_url)
 
-#scape stocks
+#scrape stocks
 def stock_scrape():
     driver.get("https://www.grundos.cafe/games/stockmarket/stocks/?view_all=True")
     html = driver.page_source
@@ -106,6 +109,9 @@ def stock_scrape():
     del stocks[0]
     df = pd.DataFrame(stocks, columns=['Ticker', 'Company', 'Volume', 'Open Price', 'Current', 'Change'])
     df.to_csv('stocks.csv', index=False)
+#    global stock_data
+#    stock_data = stock_data.append({'Ticker':stocks[0],'Company':stocks[1],'Volume':stock[2],'Open Price':stocks[3],'Current':stocks[4],'Change':stocks[5]}, ignore_index=True)
+#    print(stock_data)
 
     b = Back.LIGHTBLACK_EX
     r = Fore.LIGHTRED_EX
@@ -122,7 +128,6 @@ def stock_scrape():
         else:
             print(y+record.ticker, y+record.company, y+record.volume, y+record.open_price, y+record.curr, y+record.change)
 
-    #clear_term()
 
 def vol(some_list):
     #remove first index
