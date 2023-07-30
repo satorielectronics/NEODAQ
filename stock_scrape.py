@@ -33,24 +33,19 @@ class StockData:
 def get_time(soup):
     clock_div = soup.find("div", id="sb_clock")
 
-    global hour
     hour = clock_div.find("span", id="NST_clock_hours").text
-    global minute
     minute = clock_div.find("span", id="NST_clock_minutes").text
-    #global second
     second = clock_div.find("span", id="NST_clock_seconds").text
     am_pm = clock_div.find(class_="nst").text.split()[-2]
-    global am_pm_caps
     am_pm_caps = am_pm.upper()
     current_time = datetime.now().strftime("%I:%M:%S %p")
-    #format_time
+
     format_time = current_time[1:]
-    #format_time
     global today_time
     today_time = str(datetime.today())
 
-    print(f"Earth Time:  {format_time}")
-    print(f"Neopia Time: {hour}:{minute}:{second} {am_pm_caps}")
+    print(f"Earth Time  : {format_time}")
+    print(f"Neopia Time : {hour}:{minute}:{second} {am_pm_caps}")
     #return format_time
 
 #clear terminal
@@ -165,7 +160,7 @@ def vol(some_list):
         sum_volume += volume
 
     # Print the sum of the volumes
-    print("Sum of volumes:", sum_volume)
+    print("Total Volume:", sum_volume)
     #print(some_list)
 
 
