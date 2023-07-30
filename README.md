@@ -1,4 +1,4 @@
-# NEODAQplus :
+# NEODAQ :
 
 ### (Python/Selenium/BS4)* - grundos.cafe stock market aggregator
 ```bash
