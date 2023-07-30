@@ -87,8 +87,8 @@ def write_csv(stocks):
     df.to_csv(file_path, index=False)
 
 #scrape stocks
-def stock_scrape():
-    records, stocks = get_records()
+def stock_scrape(records, stocks):
+
 
     for row in stocks:
         ticker, company, volume, open_price, curr, change = row
@@ -191,7 +191,8 @@ while True:
         #print(f"Fishing!")
         #fishing()
         print(f"Polling Stocks!")
-        stock_scrape()
+        records, stocks = get_records()
+        stock_scrape(records, stocks)
     except Exception as e:
         print(f"Error: {str(e)}")
     jitter = random.uniform(30,  1200)
