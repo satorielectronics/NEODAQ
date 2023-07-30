@@ -89,14 +89,7 @@ def write_csv(stocks):
 #scrape stocks
 def stock_scrape(stocks):
 
-    records = []
-    for row in stocks:
-        ticker, company, volume, open_price, curr, change = row
-        record = StockData(ticker, company, volume, open_price, curr, change)
-        records.append(record)
-    #records = remove_duplicate_arrays(records)
-    #data = np.array(records)
-    del stocks[0]
+    records = stocks_to_records(stocks)
     write_csv(stocks)
 
     b = Back.LIGHTGREEN_EX
@@ -124,6 +117,18 @@ def stock_scrape(stocks):
         else:
             print(y+record.ticker, y+record.company, y+record.volume,
                   y+record.open_price, y+record.curr, y+record.change)
+
+
+def stocks_to_records(stocks):
+    records = []
+    for row in stocks:
+        ticker, company, volume, open_price, curr, change = row
+        record = StockData(ticker, company, volume, open_price, curr, change)
+        records.append(record)
+    # records = remove_duplicate_arrays(records)
+    # data = np.array(records)
+    del stocks[0]
+    return records
 
 
 def get_records():
