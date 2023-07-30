@@ -87,9 +87,9 @@ def write_csv(stocks):
     df.to_csv(file_path, index=False)
 
 #scrape stocks
-def stock_scrape(records, stocks):
+def stock_scrape(stocks):
 
-
+    records = []
     for row in stocks:
         ticker, company, volume, open_price, curr, change = row
         record = StockData(ticker, company, volume, open_price, curr, change)
@@ -149,8 +149,8 @@ def get_records():
     clear_term()
     get_time(soup)
     vol(stocks)
-    records = []
-    return records, stocks
+
+    return stocks
 
 
 def vol(some_list):
@@ -191,8 +191,8 @@ while True:
         #print(f"Fishing!")
         #fishing()
         print(f"Polling Stocks!")
-        records, stocks = get_records()
-        stock_scrape(records, stocks)
+        stocks = get_records()
+        stock_scrape(stocks)
     except Exception as e:
         print(f"Error: {str(e)}")
     jitter = random.uniform(30,  1200)
