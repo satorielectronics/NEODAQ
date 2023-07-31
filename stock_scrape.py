@@ -90,7 +90,6 @@ def write_csv(stocks):
 def stock_term(records):
 
     b = Back.LIGHTBLACK_EX
-
     r = Fore.LIGHTRED_EX
     g = Fore.LIGHTGREEN_EX
     y = Fore.LIGHTYELLOW_EX
