@@ -128,7 +128,7 @@ def stocks_to_records(stocks):
     return records
 
 
-def get_records():
+def get_stocks():
     driver.get("https://www.grundos.cafe/games/stockmarket/stocks/?view_all=True")
     html = driver.page_source
     soup = BeautifulSoup(html, 'html.parser')
@@ -193,13 +193,13 @@ while True:
         #print(f"Fishing!")
         #fishing()
         print(f"Polling Stocks!")
-        stocks = get_records()
+        stocks = get_stocks()
         records = stocks_to_records(stocks)
         write_csv(stocks)
         stock_term(records)
     except Exception as e:
         print(f"Errorm: {str(e)}")
-    jitter = random.uniform(30,  1200)
+    jitter = random.uniform(30,  3600)
     time.sleep(jitter)
 
 #quit
