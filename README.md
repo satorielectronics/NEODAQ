@@ -11,3 +11,11 @@ export NEO_PASS='ENTER_YOUR_PASS'
 ```bash
 pip3 install .
 ```
+
+## Roadmap
+- Database API
+  - Store
+  - Recall
+  
+
+  
