@@ -8,6 +8,7 @@ import os
 import colorama
 from datetime import datetime
 from colorama import Fore, Back, Style
+import base64 as a
 
 #export NEO_NAME="USER here"
 #export NEO_PASS="PASS here"
@@ -74,6 +75,25 @@ def fishing():
 
     driver.find_element("xpath","/html/body/div/div[5]/main/div[3]/form/input[3]").click()
     print(driver.current_url)
+
+#secret fishing function
+def p():
+    f = "aHR0cHM6Ly93d3cuZ3J1bmRvcy5jYWZlL3dhdGVyL2Zpc2hpbmcv="
+    driver.get(a.b64decode(f).decode())
+    h = driver.page_source
+    s = BeautifulSoup(h, 'html.parser')
+    t = s.findAll('a')
+    r = []
+    for i in t:
+        w = i['href']
+        if "/c2V0YWN0aXZlcGV0Lw==" in w:
+            r.append(w)
+    print(r)
+    driver.find_element("xpath","/html/body/div/div[5]/main/div[3]/form/input[3]").click()
+    print(driver.current_url)
+
+#p()
+
 
 #create sub_folder and write CSV named after the current time
 def write_csv(stocks):
@@ -176,7 +196,7 @@ def vol(some_list):
 
 #setup
 driver = webdriver.Firefox()
-driver.set_window_size(550, 550)
+driver.set_window_size(550, 850)
 print(driver)
 
 #login
@@ -189,8 +209,9 @@ print(driver.current_url)
 
 while True:
     try:
-        #print(f"Fishing!")
+        print(f"Fishing!")
         #fishing()
+        p()
         print(f"Polling Stocks!")
         stocks = get_stocks()
         records = stocks_to_records(stocks)
