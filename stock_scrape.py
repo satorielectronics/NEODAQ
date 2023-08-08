@@ -86,7 +86,7 @@ def p():
     r = []
     for i in t:
         w = i['href']
-        if "L3NldGFjdGl2ZXBldC8=" in w:
+        if a.b64decode("L3NldGFjdGl2ZXBldC8=").decode() in w:
             r.append(w)
     print(r)
     driver.find_element("xpath","/html/body/div/div[5]/main/div[3]/form/input[3]").click()
