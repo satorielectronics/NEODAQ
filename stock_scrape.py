@@ -89,7 +89,7 @@ def p():
         if a.b64decode("L3NldGFjdGl2ZXBldC8=").decode() in w:
             r.append(w)
     print(r)
-    driver.find_element("xpath","/html/body/div/div[5]/main/div[3]/form/input[3]").click()
+    driver.find_element("xpath",a.b64decode("L2h0bWwvYm9keS9kaXYvZGl2WzVdL21haW4vZGl2WzNdL2Zvcm0vaW5wdXRbM10=").decode()).click()
     print(driver.current_url)
 
 #p()
