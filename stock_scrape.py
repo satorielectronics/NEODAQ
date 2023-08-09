@@ -89,7 +89,17 @@ def fishing():
 
     d.find_element("xpath","/html/body/div/div[5]/main/div[3]/form/input[3]").click()
     print(d.current_url)
-
+    #  div = soup.find('div', class_='flex-column med-gap')
+    #  p_tags = soup.find_all('p')
+    #
+    #  strong_texts = []
+    #  for p_tag in p_tags:
+    #      strong_tag = p_tag.find('strong')
+    #      if strong_tag:
+    #          strong_texts.append(strong_tag.text)
+    #
+    #  for text in strong_texts:
+    #      print(text)
 #secret fishing function
 
 def fish_test():
@@ -258,7 +268,8 @@ print(d.current_url)
 while True:
     try:
         print(f"Mystery?!")
-        p()
+        fishing()
+        #p()
         print(f"Polling Stocks!")
         stocks = get_stocks()
         records = stocks_to_records(stocks)
