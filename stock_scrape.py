@@ -15,14 +15,15 @@ import base64 as a
 #HEADLESS SETUP
 options = Options()
 options.add_argument('-headless') # Set headless mode
-
 #PASTE YOUR ACTUAL USER AGENT INTO THE SECOND ARG
-
 options.set_preference("general.useragent.override", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/116.0")
 
 
 pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', None)
+pd.set_option('display.width', 1000)
+pd.set_option('display.colheader_justify', 'center')
+pd.set_option('display.precision', 4)
 #export NEO_NAME="USER here"
 #export NEO_PASS="PASS here"
 
@@ -91,6 +92,25 @@ def fishing():
 
 #secret fishing function
 
+def fish_test():
+    url = 'https://www.grundos.cafe/water/fishing/'  # Replace with the actual URL
+    csrf_token = 'r3Kyed74ZFr75GGVo87Y3YzqRXS68NkwHsPXublHs8yoXlr7QUVGCG84Y30uVvWj'  # Replace with the actual CSRF token
+
+    headers = {
+        'Content-Type': 'application/x-www-form-urlencoded',  # Set the content type accordingly
+    }
+
+    data = {
+        'csrfmiddlewaretoken': csrf_token,
+    }
+
+    response = requests.post(url, headers=headers, data=data)
+
+    if response.status_code == 200:
+        print("POST request successful!")
+    else:
+        print("POST request failed.")
+
 def p():
     c = "L2h0bWwvYm9keS9kaXYvZGl2WzVdL21haW4vZGl2WzNdL2Zvcm0vaW5wdXRbM10="
     e = "L3NldGFjdGl2ZXBldC8="
@@ -139,11 +159,7 @@ def stock_term(records):
     g = Fore.LIGHTGREEN_EX
     y = Fore.LIGHTYELLOW_EX
 
-    pd.set_option('display.max_rows', 100)
-    pd.set_option('display.max_columns', 6)
-    pd.set_option('display.width', 1000)
-    pd.set_option('display.colheader_justify', 'center')
-    pd.set_option('display.precision', 2)
+
 
     for record in records:
         if "+" in record.change:
@@ -220,9 +236,6 @@ def vol(some_list):
     #print(some_list)
 
 
-#setup
-#profile = webdriver.FirefoxProfile()
-#profile.set_preference("general.useragent.override", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Sneed/20100101 Firefox/116.0")
 
 #HEADLESS
 #d = webdriver.Firefox(options=options)
@@ -244,10 +257,8 @@ print(d.current_url)
 
 while True:
     try:
-        print(f"Fishing!")
-        #fishing()
+        print(f"Mystery?!")
         p()
-        #z(123,456)
         print(f"Polling Stocks!")
         stocks = get_stocks()
         records = stocks_to_records(stocks)
