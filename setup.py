@@ -11,6 +11,7 @@ setup(
         'requests',
         'numpy',
         'pandas',
+        'fake_useragent',
         'colorama'
     ],
 )

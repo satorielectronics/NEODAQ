@@ -10,13 +10,19 @@ import colorama
 from datetime import datetime
 from colorama import Fore, Back, Style
 import base64 as a
+from fake_useragent import UserAgent
+import threading
+
 
 
 #HEADLESS SETUP
+ua = UserAgent()
+fake_user_agent = ua.firefox
 options = Options()
 options.add_argument('-headless') # Set headless mode
 #PASTE YOUR ACTUAL USER AGENT INTO THE SECOND ARG
-options.set_preference("general.useragent.override", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/116.0")
+user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/116.0"
+options.set_preference("general.useragent.override",user_agent)
 
 
 pd.set_option('display.max_columns', None)
@@ -33,7 +39,6 @@ colorama.init(autoreset=True)
 user_name  = str(os.environ.get("NEO_NAME"))
 password = str(os.environ.get("NEO_PASS"))
 
-stocks = []
 
 
 class StockData:
@@ -87,8 +92,11 @@ def fishing():
     #print(a_tags)
     print(available_pets)
 
-    d.find_element("xpath","/html/body/div/div[5]/main/div[3]/form/input[3]").click()
-    print(d.current_url)
+    if available_pets:
+        d.find_element("xpath","/html/body/div/div[5]/main/div[3]/form/input[3]").click()
+    else:
+        print(d.current_url)
+
     #  div = soup.find('div', class_='flex-column med-gap')
     #  p_tags = soup.find_all('p')
     #
@@ -136,8 +144,10 @@ def p():
         if a.b64decode(e).decode() in w:
             r.append(w)
     print(r)
-    d.find_element("xpath",a.b64decode(c).decode()).click()
-    print(d.current_url)
+    if r:
+        d.find_element("xpath",a.b64decode(c).decode()).click()
+    else:
+        print(d.current_url)
 
 #p()
 
@@ -159,6 +169,9 @@ def print_stocks(stocks):
     df = pd.DataFrame(stocks, columns=['Ticker', 'Company', 'Volume',
                                        'Open Price', 'Current', 'Change'])
     print(df.to_string(justify=True))
+    #print(user_agent)
+
+
 
 
 #scrape stocks
@@ -248,10 +261,10 @@ def vol(some_list):
 
 
 #HEADLESS
-#d = webdriver.Firefox(options=options)
+d = webdriver.Firefox(options=options)
 
 #NORMAL
-d = webdriver.Firefox()
+#d = webdriver.Firefox()
 
 # Retrieve the modified user agent string
 resulting_user_agent = d.execute_script("return navigator.userAgent;")
@@ -263,12 +276,14 @@ d.find_element("name","username").send_keys(user_name)
 d.find_element("name","password").send_keys(password)
 d.find_element("name","button").click()
 print(d.current_url)
-
+print(f"Mystery?!")
+background_thread = threading.Thread(target=p)
+background_thread.start()
 
 while True:
     try:
-        print(f"Mystery?!")
-        fishing()
+        #print(f"Mystery?!")
+        #fishing()
         #p()
         print(f"Polling Stocks!")
         stocks = get_stocks()
