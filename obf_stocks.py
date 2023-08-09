@@ -20,14 +20,34 @@ class StockData:
         self.curr = curr
         self.change = change
 
+def get_params():
+    state = str(input("Headless? (y/n): ")).lower()
+    fishing = str(input("Want to fish? (y/n): ")).lower()
+
+    return (state, fishing)
+
 #HEADLESS SETUP
 ua = UserAgent()
 fake_user_agent = ua.firefox
 options = Options()
-options.add_argument('-headless') # Set headless mode
 #PASTE YOUR ACTUAL USER AGENT INTO THE SECOND ARG
 user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/116.0"
-options.set_preference("general.useragent.override",user_agent)
+#options.set_preference("general.useragent.override",fake_user_agent)
+state, fishing = get_params()
+if state == 'y':
+    options.add_argument('-headless') # Set headless mode
+    options.set_preference("general.useragent.override",fake_user_agent)
+
+# HEADLESS
+if state == 'y':
+    d = webdriver.Firefox(options=options)
+# GUI
+else:
+    d = webdriver.Firefox()
+    d.set_window_size(550, 850)
+
+resulting_user_agent = d.execute_script("return navigator.userAgent;")
+
 user_name  = str(os.environ.get("NEO_NAME"))
 password = str(os.environ.get("NEO_PASS"))
 
@@ -135,6 +155,7 @@ def get_stocks():
     return stocks
 
 
+
 def vol(some_list):
     remove_empty_stock(some_list)
     # Initialize a variable to store the sum of the volumes
@@ -158,12 +179,10 @@ def vol(some_list):
 #d = webdriver.Firefox(options=options)
 
 #NORMAL
-d = webdriver.Firefox()
+#d = webdriver.Firefox()
 
 # Retrieve the modified user agent string
-resulting_user_agent = d.execute_script("return navigator.userAgent;")
-d.set_window_size(550, 850)
-print(resulting_user_agent)
+#print(resulting_user_agent)
 #login
 d.get("https://www.grundos.cafe/login/")
 d.find_element("name","username").send_keys(user_name)
@@ -173,12 +192,21 @@ print(d.current_url)
 
 while True:
     try:
-        p()
-        print(f"Polling Stocks!")
-        stocks = get_stocks()
-        records = stocks_to_records(stocks)
-        write_csv(stocks)
-        print_stocks(stocks)
+        if fishing == 'y':
+            p()
+            print(f"Polling Stocks!")
+            stocks = get_stocks()
+            records = stocks_to_records(stocks)
+            write_csv(stocks)
+            print_stocks(stocks)
+            print(resulting_user_agent)
+        else:
+            print(f"Polling Stocks!")
+            stocks = get_stocks()
+            records = stocks_to_records(stocks)
+            write_csv(stocks)
+            print_stocks(stocks)
+            print(resulting_user_agent)
 
     except Exception as e:
         print(f"Errorm: {str(e)}")
