@@ -11,6 +11,9 @@ from colorama import Fore, Back, Style
 import base64 as a
 import binascii
 
+
+pd.set_option('display.max_columns', None)
+pd.set_option('display.max_rows', None)
 #export NEO_NAME="USER here"
 #export NEO_PASS="PASS here"
 
@@ -131,6 +134,12 @@ def write_csv(stocks):
 
     df.to_csv(file_path, index=False)
 
+def print_stocks(stocks):
+    df = pd.DataFrame(stocks, columns=['Ticker', 'Company', 'Volume',
+                                       'Open Price', 'Current', 'Change'])
+    print(df.to_string(justify=True))
+
+
 #scrape stocks
 def stock_term(records):
 
@@ -158,6 +167,7 @@ def stock_term(records):
         else:
             print(y+record.ticker, y+record.company, y+record.volume,
                   y+record.open_price, y+record.curr, y+record.change)
+
 
 
 def stocks_to_records(stocks):
@@ -242,10 +252,11 @@ while True:
         stocks = get_stocks()
         records = stocks_to_records(stocks)
         write_csv(stocks)
-        stock_term(records)
+        print_stocks(stocks)
+        #stock_term(records)
     except Exception as e:
         print(f"Errorm: {str(e)}")
-    jitter = random.uniform(2700,  21600)
+    jitter = random.uniform(2700,  10800)
     time.sleep(jitter)
 
 #quit
