@@ -188,7 +188,7 @@ d.get("https://www.grundos.cafe/login/")
 d.find_element("name","username").send_keys(user_name)
 d.find_element("name","password").send_keys(password)
 d.find_element("name","button").click()
-print(d.current_url)
+#print(d.current_url)
 
 while True:
     try:
