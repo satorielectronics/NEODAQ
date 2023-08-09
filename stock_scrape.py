@@ -13,6 +13,15 @@ import base64 as a
 from fake_useragent import UserAgent
 import threading
 
+class StockData:
+    def __init__(self, ticker, company, volume, open_price, curr, change):
+        self.ticker = ticker
+        self.company = company
+        self.volume = volume
+        self.open_price = open_price
+        self.curr = curr
+        self.change = change
+
 
 
 #HEADLESS SETUP
@@ -40,15 +49,6 @@ user_name  = str(os.environ.get("NEO_NAME"))
 password = str(os.environ.get("NEO_PASS"))
 
 
-
-class StockData:
-    def __init__(self, ticker, company, volume, open_price, curr, change):
-        self.ticker = ticker
-        self.company = company
-        self.volume = volume
-        self.open_price = open_price
-        self.curr = curr
-        self.change = change
 
 def get_time(soup):
     clock_div = soup.find("div", id="sb_clock")
@@ -261,10 +261,10 @@ def vol(some_list):
 
 
 #HEADLESS
-d = webdriver.Firefox(options=options)
+#d = webdriver.Firefox(options=options)
 
 #NORMAL
-#d = webdriver.Firefox()
+d = webdriver.Firefox()
 
 # Retrieve the modified user agent string
 resulting_user_agent = d.execute_script("return navigator.userAgent;")
