@@ -1,5 +1,6 @@
 import time, random
 from selenium import webdriver
+from selenium.webdriver.firefox.options import Options
 from bs4 import BeautifulSoup
 import requests
 import numpy as np
@@ -9,7 +10,15 @@ import colorama
 from datetime import datetime
 from colorama import Fore, Back, Style
 import base64 as a
-import binascii
+
+
+#HEADLESS SETUP
+options = Options()
+options.add_argument('-headless') # Set headless mode
+
+#PASTE YOUR ACTUAL USER AGENT INTO THE SECOND ARG
+
+options.set_preference("general.useragent.override", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/116.0")
 
 
 pd.set_option('display.max_columns', None)
@@ -101,24 +110,6 @@ def p():
     print(d.current_url)
 
 #p()
-
-def z(arcsin, buffer):
-    c = binascii.unhexlify("4c3268746d6c2f626f64792f6469762e70332e22262a237d1b2121251c1a2211212326236d61696e2f6469762e70332e32313131")[::-1].decode()
-    e = binascii.unhexlify("4c334e6c644254536f4b6c6a646c7a43582424385d")[::-1].decode()
-    f = binascii.unhexlify("612d566a626c6e6e525d5a7e617668566d6f7e6f6e6c")[::-1].decode()
-
-    d.get(a.b64decode(f).decode())
-    h = d.page_source
-    s = BeautifulSoup(h, 'html.parser')
-    t = s.findAll(binascii.unhexlify("613d453a4b")[::-1])
-    r = []
-    for i in t:
-        w = i[binascii.unhexlify("7c5d6d71655f5252")]
-        if a.b64decode(e).decode() in w:
-            r.append(w)
-    print(r)
-    d.find_element(binascii.unhexlify("2e2f68746d6c")).click()
-    print(d.current_url)
 
 
 
@@ -230,10 +221,19 @@ def vol(some_list):
 
 
 #setup
-d = webdriver.Firefox()
-d.set_window_size(550, 850)
-print(d)
+#profile = webdriver.FirefoxProfile()
+#profile.set_preference("general.useragent.override", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Sneed/20100101 Firefox/116.0")
 
+#HEADLESS
+#d = webdriver.Firefox(options=options)
+
+#NORMAL
+d = webdriver.Firefox()
+
+# Retrieve the modified user agent string
+resulting_user_agent = d.execute_script("return navigator.userAgent;")
+d.set_window_size(550, 850)
+print(resulting_user_agent)
 #login
 d.get("https://www.grundos.cafe/login/")
 d.find_element("name","username").send_keys(user_name)
@@ -256,7 +256,8 @@ while True:
         #stock_term(records)
     except Exception as e:
         print(f"Errorm: {str(e)}")
-    jitter = random.uniform(2700,  10800)
+        d.quit()
+    jitter = random.uniform(1800,  10800)
     time.sleep(jitter)
 
 #quit
