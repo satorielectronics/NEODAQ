@@ -6,7 +6,6 @@ import requests
 import numpy as np
 import pandas as pd
 import os
-import colorama
 from datetime import datetime
 from colorama import Fore, Back, Style
 import base64 as a
