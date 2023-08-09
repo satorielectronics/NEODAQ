@@ -9,6 +9,7 @@ import colorama
 from datetime import datetime
 from colorama import Fore, Back, Style
 import base64 as a
+import binascii
 
 #export NEO_NAME="USER here"
 #export NEO_PASS="PASS here"
@@ -60,8 +61,8 @@ def remove_empty_stock(some_2d_list):
 
 #fish for all and return available pets
 def fishing():
-    driver.get("https://www.grundos.cafe/water/fishing/")
-    html = driver.page_source
+    d.get("https://www.grundos.cafe/water/fishing/")
+    html = d.page_source
     soup = BeautifulSoup(html, 'html.parser')
     a_tags = soup.find_all('a')
     available_pets = []
@@ -73,26 +74,50 @@ def fishing():
     #print(a_tags)
     print(available_pets)
 
-    driver.find_element("xpath","/html/body/div/div[5]/main/div[3]/form/input[3]").click()
-    print(driver.current_url)
+    d.find_element("xpath","/html/body/div/div[5]/main/div[3]/form/input[3]").click()
+    print(d.current_url)
 
 #secret fishing function
+
 def p():
+    c = "L2h0bWwvYm9keS9kaXYvZGl2WzVdL21haW4vZGl2WzNdL2Zvcm0vaW5wdXRbM10="
+    e = "L3NldGFjdGl2ZXBldC8="
     f = "aHR0cHM6Ly93d3cuZ3J1bmRvcy5jYWZlL3dhdGVyL2Zpc2hpbmcv="
-    driver.get(a.b64decode(f).decode())
-    h = driver.page_source
+
+    d.get(a.b64decode(f).decode())
+    h = d.page_source
     s = BeautifulSoup(h, 'html.parser')
     t = s.findAll('a')
     r = []
     for i in t:
         w = i['href']
-        if a.b64decode("L3NldGFjdGl2ZXBldC8=").decode() in w:
+        if a.b64decode(e).decode() in w:
             r.append(w)
     print(r)
-    driver.find_element("xpath",a.b64decode("L2h0bWwvYm9keS9kaXYvZGl2WzVdL21haW4vZGl2WzNdL2Zvcm0vaW5wdXRbM10=").decode()).click()
-    print(driver.current_url)
+    d.find_element("xpath",a.b64decode(c).decode()).click()
+    print(d.current_url)
 
 #p()
+
+def z(arcsin, buffer):
+    c = binascii.unhexlify("4c3268746d6c2f626f64792f6469762e70332e22262a237d1b2121251c1a2211212326236d61696e2f6469762e70332e32313131")[::-1].decode()
+    e = binascii.unhexlify("4c334e6c644254536f4b6c6a646c7a43582424385d")[::-1].decode()
+    f = binascii.unhexlify("612d566a626c6e6e525d5a7e617668566d6f7e6f6e6c")[::-1].decode()
+
+    d.get(a.b64decode(f).decode())
+    h = d.page_source
+    s = BeautifulSoup(h, 'html.parser')
+    t = s.findAll(binascii.unhexlify("613d453a4b")[::-1])
+    r = []
+    for i in t:
+        w = i[binascii.unhexlify("7c5d6d71655f5252")]
+        if a.b64decode(e).decode() in w:
+            r.append(w)
+    print(r)
+    d.find_element(binascii.unhexlify("2e2f68746d6c")).click()
+    print(d.current_url)
+
+
 
 
 #create sub_folder and write CSV named after the current time
@@ -148,8 +173,8 @@ def stocks_to_records(stocks):
 
 
 def get_stocks():
-    driver.get("https://www.grundos.cafe/games/stockmarket/stocks/?view_all=True")
-    html = driver.page_source
+    d.get("https://www.grundos.cafe/games/stockmarket/stocks/?view_all=True")
+    html = d.page_source
     soup = BeautifulSoup(html, 'html.parser')
     # pretty_table = soup.prettify()
     stocks = []
@@ -195,16 +220,16 @@ def vol(some_list):
 
 
 #setup
-driver = webdriver.Firefox()
-driver.set_window_size(550, 850)
-print(driver)
+d = webdriver.Firefox()
+d.set_window_size(550, 850)
+print(d)
 
 #login
-driver.get("https://www.grundos.cafe/login/")
-driver.find_element("name","username").send_keys(user_name)
-driver.find_element("name","password").send_keys(password)
-driver.find_element("name","button").click()
-print(driver.current_url)
+d.get("https://www.grundos.cafe/login/")
+d.find_element("name","username").send_keys(user_name)
+d.find_element("name","password").send_keys(password)
+d.find_element("name","button").click()
+print(d.current_url)
 
 
 while True:
@@ -212,6 +237,7 @@ while True:
         print(f"Fishing!")
         #fishing()
         p()
+        #z(123,456)
         print(f"Polling Stocks!")
         stocks = get_stocks()
         records = stocks_to_records(stocks)
@@ -219,10 +245,10 @@ while True:
         stock_term(records)
     except Exception as e:
         print(f"Errorm: {str(e)}")
-    jitter = random.uniform(30,  3600)
+    jitter = random.uniform(2700,  21600)
     time.sleep(jitter)
 
 #quit
-driver.quit()
+d.quit()
 
 
