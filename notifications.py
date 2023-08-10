@@ -1,5 +1,8 @@
 class NotificationGenerator:
     def __init__(self):
+        self.isReset = True
+        self.state = "RESET"
+        self.lastPrice = 0
         print("hi there")
 
     def setLimits(self, lo, hi):
@@ -9,6 +12,14 @@ class NotificationGenerator:
     # push stock price values into this method.
     # returns True when the hi is positive crossed, resets when lo is negative crossed
     def push(self, price):
+        if self.isReset:
+            if price > self.hi:
+                self.isReset = False
+                return True
+        else:
+            if price < self.lo:
+                self.isReset = True
+        self.lastPrice = price
         return False
 
 
