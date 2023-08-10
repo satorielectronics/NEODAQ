@@ -11,6 +11,9 @@ export NEO_PASS='ENTER_YOUR_PASS'
 ```bash
 pip3 install .
 ```
+```bash
+python3 obf_stocks.py
+```
 
 ## Roadmap
 - Database API
