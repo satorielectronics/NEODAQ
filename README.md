@@ -16,6 +16,6 @@ pip3 install .
 - Database API
   - Store
   - Recall
-  
+- Notifications, send a text or something when a price crosses some thresh hold so we can waddle to our gc rig and buy/sell
 
   
