@@ -1,7 +1,6 @@
 class NotificationGenerator:
     def __init__(self):
         self.isReset = True
-        self.lastPrice = 0
         print("hi there")
 
     def setLimits(self, lo, hi):
@@ -18,7 +17,6 @@ class NotificationGenerator:
         else:
             if price < self.lo:
                 self.isReset = True
-        self.lastPrice = price
         return False
 
 
