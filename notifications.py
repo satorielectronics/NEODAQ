@@ -6,6 +6,8 @@ class NotificationGenerator:
         self.lo = lo
         self.hi = hi
 
+    # push stock price values into this method.
+    # returns True when the hi is positive crossed, resets when lo is negative crossed
     def push(self, price):
         return False
 
