@@ -1,7 +1,6 @@
 class NotificationGenerator:
     def __init__(self):
         self.isReset = True
-        self.state = "RESET"
         self.lastPrice = 0
         print("hi there")
 
