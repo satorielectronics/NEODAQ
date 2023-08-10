@@ -34,17 +34,22 @@ options = Options()
 user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/116.0"
 #options.set_preference("general.useragent.override",fake_user_agent)
 state, fishing = get_params()
-if state == 'y':
-    options.add_argument('-headless') # Set headless mode
-    options.set_preference("general.useragent.override",fake_user_agent)
 
-# HEADLESS
-if state == 'y':
-    d = webdriver.Firefox(options=options)
-# GUI
-else:
-    d = webdriver.Firefox()
-    d.set_window_size(550, 850)
+def setup(state):
+    if state == 'y':
+        options.add_argument('-headless') # Set headless mode
+        options.set_preference("general.useragent.override",fake_user_agent)
+
+    # HEADLESS
+    if state == 'y':
+        d = webdriver.Firefox(options=options)
+    # GUI
+    else:
+        d = webdriver.Firefox()
+        d.set_window_size(550, 850)
+    return d
+
+d = setup(state)
 
 resulting_user_agent = d.execute_script("return navigator.userAgent;")
 
@@ -155,6 +160,23 @@ def get_stocks():
     return stocks
 
 
+def fish():
+    p()
+    print(f"Polling Stocks!")
+    stocks = get_stocks()
+    records = stocks_to_records(stocks)
+    write_csv(stocks)
+    print_stocks(stocks)
+    print(resulting_user_agent)
+
+def no_fish():
+    print(f"Polling Stocks!")
+    stocks = get_stocks()
+    records = stocks_to_records(stocks)
+    write_csv(stocks)
+    print_stocks(stocks)
+    print(resulting_user_agent)
+
 
 def vol(some_list):
     remove_empty_stock(some_list)
@@ -193,20 +215,26 @@ d.find_element("name","button").click()
 while True:
     try:
         if fishing == 'y':
-            p()
-            print(f"Polling Stocks!")
-            stocks = get_stocks()
-            records = stocks_to_records(stocks)
-            write_csv(stocks)
-            print_stocks(stocks)
-            print(resulting_user_agent)
+            #  p()
+            #  print(f"Polling Stocks!")
+            #  stocks = get_stocks()
+            #  records = stocks_to_records(stocks)
+            #  write_csv(stocks)
+            #  print_stocks(stocks)
+            #  print(resulting_user_agent)
+            #  #list comprehension for working with StockData
+            #  #[print(stock.ticker) for stock in records]
+            fish()
+
         else:
-            print(f"Polling Stocks!")
-            stocks = get_stocks()
-            records = stocks_to_records(stocks)
-            write_csv(stocks)
-            print_stocks(stocks)
-            print(resulting_user_agent)
+            #  print(f"Polling Stocks!")
+            #  stocks = get_stocks()
+            #  records = stocks_to_records(stocks)
+            #  write_csv(stocks)
+            #  print_stocks(stocks)
+            #  print(resulting_user_agent)
+            no_fish()
+
 
     except Exception as e:
         print(f"Errorm: {str(e)}")
