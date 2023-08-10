@@ -81,6 +81,10 @@ def remove_empty_stock(some_2d_list):
 def clear_term():
     os.system('cls' if os.name == 'nt' else 'clear')
 
+def volume(records):
+    del records[0]
+    return sum(stock.volume for stock in records)
+
 def p():
     c = "L2h0bWwvYm9keS9kaXYvZGl2WzVdL21haW4vZGl2WzNdL2Zvcm0vaW5wdXRbM10="
     e = "L3NldGFjdGl2ZXBldC8="
@@ -157,10 +161,12 @@ def get_stocks():
     return stocks
 
 def fish():
+
     p()
     print(f"Polling Stocks!")
     stocks = get_stocks()
     records = stocks_to_records(stocks)
+    #print(volume(records))
     write_csv(stocks)
     print_stocks(stocks)
     print(resulting_user_agent)
