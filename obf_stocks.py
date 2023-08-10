@@ -32,7 +32,6 @@ fake_user_agent = ua.firefox
 options = Options()
 #PASTE YOUR ACTUAL USER AGENT INTO THE SECOND ARG
 user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/116.0"
-#options.set_preference("general.useragent.override",fake_user_agent)
 state, fishing = get_params()
 
 def setup(state):
@@ -96,12 +95,10 @@ def p():
         w = i['href']
         if a.b64decode(e).decode() in w:
             r.append(w)
-    #print(r)
     if r:
         print(f"Mystery!?!")
         d.find_element("xpath",a.b64decode(c).decode()).click()
     else:
-    #    #clear_term()
         print("No fish available.")
 
 #create sub_folder and write CSV named after the current time
@@ -159,7 +156,6 @@ def get_stocks():
 
     return stocks
 
-
 def fish():
     p()
     print(f"Polling Stocks!")
@@ -176,7 +172,6 @@ def no_fish():
     write_csv(stocks)
     print_stocks(stocks)
     print(resulting_user_agent)
-
 
 def vol(some_list):
     remove_empty_stock(some_list)
@@ -195,16 +190,7 @@ def vol(some_list):
 
     # Print the sum of the volumes
     print("Total Volume:", sum_volume)
-    #print(some_list)
 
-#HEADLESS
-#d = webdriver.Firefox(options=options)
-
-#NORMAL
-#d = webdriver.Firefox()
-
-# Retrieve the modified user agent string
-#print(resulting_user_agent)
 #login
 d.get("https://www.grundos.cafe/login/")
 d.find_element("name","username").send_keys(user_name)
@@ -215,33 +201,17 @@ d.find_element("name","button").click()
 while True:
     try:
         if fishing == 'y':
-            #  p()
-            #  print(f"Polling Stocks!")
-            #  stocks = get_stocks()
-            #  records = stocks_to_records(stocks)
-            #  write_csv(stocks)
-            #  print_stocks(stocks)
-            #  print(resulting_user_agent)
-            #  #list comprehension for working with StockData
             #  #[print(stock.ticker) for stock in records]
             fish()
 
         else:
-            #  print(f"Polling Stocks!")
-            #  stocks = get_stocks()
-            #  records = stocks_to_records(stocks)
-            #  write_csv(stocks)
-            #  print_stocks(stocks)
-            #  print(resulting_user_agent)
             no_fish()
-
 
     except Exception as e:
         print(f"Errorm: {str(e)}")
         d.quit()
     jitter = random.uniform(1800,  10800)
     time.sleep(jitter)
-
 
 #quit
 d.quit()
