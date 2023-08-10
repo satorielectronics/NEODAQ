@@ -19,3 +19,4 @@ pip3 install .
 - Notifications, send a text or something when a price crosses some thresh hold so we can waddle to our gc rig and buy/sell
 
   
+<a href="https://ibb.co/wSTMnC3"><img src="https://i.ibb.co/McbMzpW/stock-github-img.png" alt="stock-github-img" border="0"></a>
