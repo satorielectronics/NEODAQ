@@ -44,9 +44,9 @@ files = get_files(Path('./records'))
 
 i = files[0]
 
-price = get_price_for_ticker_from_file(i, "YIPP")
-
-print(price)
+for f in files:
+    price = get_price_for_ticker_from_file(f, "YIPP")
+    print(price)
 
 date = get_date_from_file_name(i)
 
