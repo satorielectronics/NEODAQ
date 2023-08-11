@@ -4,14 +4,12 @@ from pathlib import Path
 import pandas as pd
 import datetime as dt
 
-p = Path('./records')
-
 
 def is_db_file(f):
     return f.name.endswith("csv")
 
 
-def get_files():
+def get_files(p):
     f = []
     for x in p.iterdir():
         if is_db_file(x):
@@ -19,7 +17,7 @@ def get_files():
     return f
 
 
-files = get_files()
+files = get_files(Path('./records'))
 
 i = files[0]
 
