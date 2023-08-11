@@ -28,14 +28,19 @@ xx = pd.read_csv(i)
 
 # print(xx)
 
-def get_date_from_file_name(f):
+def get_date_str_from_file_name(f):
     return f.name.split('.')[0]
 
 
-date_str = get_date_from_file_name(i)
+def get_date_from_file_name(f):
+    date_str = get_date_str_from_file_name(f)
+    return get_date_from_str(date_str)
 
-print(date_str)
 
-date = dt.datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S')
+def get_date_from_str(date_string):
+    return dt.datetime.strptime(date_string, '%Y-%m-%d %H:%M:%S')
+
+
+date = get_date_from_file_name(i)
 
 print(date)
