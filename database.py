@@ -41,15 +41,15 @@ def get_price_for_ticker_from_file(f, my_stock):
 
 
 def get_prices_for_ticker(files, my_stock):
-    prices = []
+    pp = []
     for f in files:
         tt = []
         date = get_date_from_file_name(f)
         price = get_price_for_ticker_from_file(f, my_stock)
         tt.append(date)
         tt.append(price)
-        prices.append(tt)
-    return prices
+        pp.append(tt)
+    return pp
 
 
 prices = get_prices_for_ticker(get_files(Path('./records')), "YIPP")
