@@ -217,6 +217,8 @@ while True:
         print(f"Errorm: {str(e)}")
         d.quit()
     jitter = random.uniform(1800,  10800)
+    #jitter = random.uniform(10, 20)
+
     time.sleep(jitter)
 
 #quit
