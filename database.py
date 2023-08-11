@@ -1,4 +1,6 @@
+import fileinput
 from pathlib import Path
+import pandas as pd
 
 p = Path('./records')
 
@@ -18,4 +20,8 @@ def get_files():
 files = get_files()
 
 i = files[0]
-print(i)
+
+xx = pd.read_csv(i)
+
+print(xx)
+
