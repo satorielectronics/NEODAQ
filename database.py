@@ -30,7 +30,7 @@ def get_date_from_str(date_string):
     return dt.datetime.strptime(date_string, '%Y-%m-%d %H:%M:%S')
 
 
-def get_price_for_ticker_from_file(f):
+def get_price_for_ticker_from_file(f, my_stock):
     xx = pd.read_csv(f)
     for xo in xx.iterrows():
         series = xo[1]
@@ -40,13 +40,11 @@ def get_price_for_ticker_from_file(f):
             return current_price
 
 
-my_stock = "YIPP"
-
 files = get_files(Path('./records'))
 
 i = files[0]
 
-price = get_price_for_ticker_from_file(i)
+price = get_price_for_ticker_from_file(i, "YIPP")
 
 print(price)
 
