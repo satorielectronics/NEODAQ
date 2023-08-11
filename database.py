@@ -21,7 +21,17 @@ files = get_files(Path('./records'))
 
 i = files[0]
 
+my_stock = "YIPP"
+
 xx = pd.read_csv(i)
+
+for xo in xx.iterrows():
+    series = xo[1]
+    ticker = series[0]
+    if ticker == my_stock:
+        current_price = series[4]
+        print(current_price)
+
 
 
 # print(xx)
@@ -41,4 +51,4 @@ def get_date_from_str(date_string):
 
 date = get_date_from_file_name(i)
 
-print(date)
+#print(date)
