@@ -17,25 +17,6 @@ def get_files(p):
     return f
 
 
-files = get_files(Path('./records'))
-
-i = files[0]
-
-my_stock = "YIPP"
-
-xx = pd.read_csv(i)
-
-for xo in xx.iterrows():
-    series = xo[1]
-    ticker = series[0]
-    if ticker == my_stock:
-        current_price = series[4]
-        print(current_price)
-
-
-
-# print(xx)
-
 def get_date_str_from_file_name(f):
     return f.name.split('.')[0]
 
@@ -49,6 +30,22 @@ def get_date_from_str(date_string):
     return dt.datetime.strptime(date_string, '%Y-%m-%d %H:%M:%S')
 
 
+my_stock = "YIPP"
+
+files = get_files(Path('./records'))
+
+i = files[0]
+
+xx = pd.read_csv(i)
+for xo in xx.iterrows():
+    series = xo[1]
+    ticker = series[0]
+    if ticker == my_stock:
+        current_price = series[4]
+        print(current_price)
+
+# print(xx)
+
 date = get_date_from_file_name(i)
 
-#print(date)
+# print(date)
