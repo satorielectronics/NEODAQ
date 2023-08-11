@@ -40,18 +40,21 @@ def get_price_for_ticker_from_file(f, my_stock):
             return current_price
 
 
-files = get_files(Path('./records'))
+def get_prices_for_ticker(files, my_stock):
+    prices = []
+    for f in files:
+        tt = []
+        date = get_date_from_file_name(f)
+        price = get_price_for_ticker_from_file(f, my_stock)
+        tt.append(date)
+        tt.append(price)
+        prices.append(tt)
+    return prices
 
-i = files[0]
 
-for f in files:
-    tt = []
-    date = get_date_from_file_name(f)
-    price = get_price_for_ticker_from_file(f, "YIPP")
-    tt.append(date)
-    tt.append(price)
-    print(tt)
+prices = get_prices_for_ticker(get_files(Path('./records')), "YIPP")
 
-
+for p in prices:
+    print(p)
 
 # print(date)
