@@ -60,10 +60,12 @@ def get_prices_for_ticker(files, my_stock):
 
 def plot_prices(price_list):
     global p
-    pp = []
+    yy = []
+    xx = []
     for p in price_list:
-        pp.append(p.price)
-    plt.plot(pp)
+        yy.append(p.price)
+        xx.append(p.date)
+    plt.step(xx, yy)
     plt.ylabel('some numbers')
     plt.show()
 
