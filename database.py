@@ -60,7 +60,7 @@ def get_prices_for_ticker(files, my_stock):
 
 prices = get_prices_for_ticker(get_files(Path('./records')), "YIPP")
 
+prices.sort(key=lambda x: x.date, reverse=True)
+
 for p in prices:
     print(p.to_string())
-
-# print(date)
