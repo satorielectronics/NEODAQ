@@ -55,12 +55,13 @@ def get_prices_for_ticker(files, my_stock):
         date = get_date_from_file_name(f)
         price = get_price_for_ticker_from_file(f, my_stock)
         pp.append(StockPoint(date, price))
+    pp.sort(key=lambda x: x.date, reverse=False)
     return pp
 
 
 prices = get_prices_for_ticker(get_files(Path('./records')), "YIPP")
 
-prices.sort(key=lambda x: x.date, reverse=True)
+
 
 for p in prices:
     print(p.to_string())
