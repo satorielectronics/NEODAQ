@@ -1,8 +1,7 @@
-import datetime
-import fileinput
 from pathlib import Path
 import pandas as pd
 import datetime as dt
+import matplotlib.pyplot as plt
 
 
 def is_db_file(f):
@@ -40,21 +39,40 @@ def get_price_for_ticker_from_file(f, my_stock):
             return current_price
 
 
+class StockPoint:
+    def __init__(self, date, price):
+        self.date = date
+        self.price = price
+
+    def to_string(self):
+        return '{0} @ {1}'.format(self.date, self.price)
+
+
 def get_prices_for_ticker(files, my_stock):
     pp = []
     for f in files:
-        tt = []
         date = get_date_from_file_name(f)
         price = get_price_for_ticker_from_file(f, my_stock)
-        tt.append(date)
-        tt.append(price)
-        pp.append(tt)
+        pp.append(StockPoint(date, price))
+    pp.sort(key=lambda x: x.date, reverse=False)
     return pp
 
 
-prices = get_prices_for_ticker(get_files(Path('./records')), "YIPP")
+def plot_prices(price_list):
+    global p
+    yy = []
+    xx = []
+    for p in price_list:
+        yy.append(p.price)
+        xx.append(p.date)
+    plt.step(xx, yy)
+    plt.ylabel('some numbers')
+    plt.show()
+
+
+prices = get_prices_for_ticker(get_files(Path('./records')), "EEEE")
 
 for p in prices:
-    print(p)
+    print(p.to_string())
 
-# print(date)
+plot_prices(prices)
