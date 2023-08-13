@@ -40,21 +40,27 @@ def get_price_for_ticker_from_file(f, my_stock):
             return current_price
 
 
+class StockPoint:
+    def __init__(self, date, price):
+        self.date = date
+        self.price = price
+
+    def to_string(self):
+        return '{0} @ {1}'.format(self.date, self.price)
+
+
 def get_prices_for_ticker(files, my_stock):
     pp = []
     for f in files:
-        tt = []
         date = get_date_from_file_name(f)
         price = get_price_for_ticker_from_file(f, my_stock)
-        tt.append(date)
-        tt.append(price)
-        pp.append(tt)
+        pp.append(StockPoint(date, price))
     return pp
 
 
 prices = get_prices_for_ticker(get_files(Path('./records')), "YIPP")
 
 for p in prices:
-    print(p)
+    print(p.to_string())
 
 # print(date)
