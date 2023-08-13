@@ -3,6 +3,8 @@ import fileinput
 from pathlib import Path
 import pandas as pd
 import datetime as dt
+import matplotlib.pyplot as plt
+
 
 
 def is_db_file(f):
@@ -61,7 +63,13 @@ def get_prices_for_ticker(files, my_stock):
 
 prices = get_prices_for_ticker(get_files(Path('./records')), "YIPP")
 
-
-
 for p in prices:
     print(p.to_string())
+
+pp = []
+for p in prices:
+    pp.append(p.price)
+
+plt.plot(pp)
+plt.ylabel('some numbers')
+plt.show()

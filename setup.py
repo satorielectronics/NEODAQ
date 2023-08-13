@@ -12,7 +12,7 @@ setup(
         'numpy',
         'pandas',
         'fake_useragent',
-        'colorama'
+        'colorama',
+        'matplotlib'
     ],
 )
-
