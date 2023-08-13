@@ -1,10 +1,7 @@
-import datetime
-import fileinput
 from pathlib import Path
 import pandas as pd
 import datetime as dt
 import matplotlib.pyplot as plt
-
 
 
 def is_db_file(f):
@@ -61,7 +58,7 @@ def get_prices_for_ticker(files, my_stock):
     return pp
 
 
-prices = get_prices_for_ticker(get_files(Path('./records')), "YIPP")
+prices = get_prices_for_ticker(get_files(Path('./records')), "EEEE")
 
 for p in prices:
     print(p.to_string())
