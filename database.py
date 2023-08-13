@@ -58,15 +58,19 @@ def get_prices_for_ticker(files, my_stock):
     return pp
 
 
+def plot_prices(price_list):
+    global p
+    pp = []
+    for p in price_list:
+        pp.append(p.price)
+    plt.plot(pp)
+    plt.ylabel('some numbers')
+    plt.show()
+
+
 prices = get_prices_for_ticker(get_files(Path('./records')), "EEEE")
 
 for p in prices:
     print(p.to_string())
 
-pp = []
-for p in prices:
-    pp.append(p.price)
-
-plt.plot(pp)
-plt.ylabel('some numbers')
-plt.show()
+plot_prices(prices)
