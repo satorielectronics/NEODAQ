@@ -85,6 +85,32 @@ def volume(records):
     del records[0]
     return sum(stock.volume for stock in records)
 
+def check_fish():
+    c = "L2h0bWwvYm9keS9kaXYvZGl2WzVdL21haW4vZGl2WzNdL2Zvcm0vaW5wdXRbM10="
+    e = "L3NldGFjdGl2ZXBldC8="
+    f = "aHR0cHM6Ly93d3cuZ3J1bmRvcy5jYWZlL3dhdGVyL2Zpc2hpbmcv="
+
+    d.get(a.b64decode(f).decode())
+    h = d.page_source
+    s = BeautifulSoup(h, 'html.parser')
+    t = s.findAll('a')
+    r = []
+    for i in t:
+        w = i['href']
+        if a.b64decode(e).decode() in w:
+            r.append(w)
+    if r:
+        #print(f"Mystery!?!")
+        print(r)
+        #d.find_element("xpath",a.b64decode(c).decode()).click()
+    else:
+        print("No fish available.")
+
+
+def go_fish():
+    c = "L2h0bWwvYm9keS9kaXYvZGl2WzVdL21haW4vZGl2WzNdL2Zvcm0vaW5wdXRbM10="
+    d.find_element("xpath",a.b64decode(c).decode()).click()
+
 def p():
     c = "L2h0bWwvYm9keS9kaXYvZGl2WzVdL21haW4vZGl2WzNdL2Zvcm0vaW5wdXRbM10="
     e = "L3NldGFjdGl2ZXBldC8="
@@ -101,6 +127,7 @@ def p():
             r.append(w)
     if r:
         print(f"Mystery!?!")
+        print(r)
         d.find_element("xpath",a.b64decode(c).decode()).click()
     else:
         print("No fish available.")
@@ -169,6 +196,8 @@ def fish():
     #print(volume(records))
     write_csv(stocks)
     print_stocks(stocks)
+    #check_fish()
+    #go_fish()
     print(resulting_user_agent)
 
 def no_fish():
@@ -204,6 +233,8 @@ d.find_element("name","password").send_keys(password)
 d.find_element("name","button").click()
 #print(d.current_url)
 
+rounds = 0
+
 while True:
     try:
         if fishing == 'y':
@@ -216,8 +247,13 @@ while True:
     except Exception as e:
         print(f"Errorm: {str(e)}")
         d.quit()
-    jitter = random.uniform(1800,  10800)
-    #jitter = random.uniform(10, 20)
+    rounds+=1
+    #jitter = random.uniform(1800,  10800)
+    print("Rounds: ", rounds)
+    jitter = random.uniform(180, 6000)
+    #jitter = random.uniform(10, 30)
+
+
 
     time.sleep(jitter)
 
