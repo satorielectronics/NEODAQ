@@ -146,7 +146,11 @@ def write_csv(stocks):
 def print_stocks(stocks):
     df = pd.DataFrame(stocks, columns=['Ticker', 'Company', 'Volume',
                                        'Open Price', 'Current', 'Change'])
-    print(df.to_string(justify=True))
+    df['Current'] = df['Current'].astype(float)
+
+    df_sorted = df.sort_values('Current', ascending=False, na_position='last')
+
+    print(df_sorted.to_string(justify=True))
     #print(user_agent)
 
 def stocks_to_records(stocks):
